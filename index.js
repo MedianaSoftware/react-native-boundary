@@ -68,22 +68,22 @@ export default {
     }
 
     return RNBoundary.remove(id);
-  }
+  },
   
   requestPermissions: level => {
     return RNBoundary.requestPermissions(level);
-  }
+  },
 
   requestLocation: () => {
     return RNBoundary.requestLocation();
-  }
+  },
   
   locationEnabled: callback => {
     return RNBoundary.locationEnabled(callback);
-  }
+  },
   
   hasPermissions: callback => {
     return RNBoundary.locationEnabled(callback);
-  }
+  },
 }
 
