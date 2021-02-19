@@ -133,6 +133,21 @@ RCT_EXPORT_METHOD(requestPermissions:(NSString *)permissionType
     [self sendEventWithName:@"locationChange" body:lastLocationEvent];
 }
 
+RCT_EXPORT_METHOD(hasPermissions:(RCTResponseSenderBlock)callback) {
+  RCTLogInfo(@"Calling hasPermissions");
+  
+  CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+  
+  callback(@[@(status)]);
+}
+
+
+RCT_EXPORT_METHOD(locationEnabled:(RCTResponseSenderBlock)callback) {
+  RCTLogInfo(@"Called locationEnabled");
+  BOOL status = [CLLocationManager locationServicesEnabled];
+  callback(@[@(status)]);
+}
+
 + (BOOL)requiresMainQueueSetup
 {
   return YES;
