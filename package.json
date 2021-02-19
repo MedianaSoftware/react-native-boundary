@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eddieowens/react-native-boundary.git"
+    "url": "git+https://github.com/MedianaSoftware/react-native-boundary.git"
   },
   "typings": "typings/index.d.ts",
   "keywords": [
