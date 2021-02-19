@@ -82,7 +82,7 @@ RCT_EXPORT_METHOD(removeAll:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromise
 
 RCT_EXPORT_METHOD(requestLocation)
 {
-  [locationManager requestLocation];
+  [self.locationManager requestLocation];
 }
 
 RCT_EXPORT_METHOD(requestPermissions:(NSString *)permissionType
@@ -93,10 +93,10 @@ RCT_EXPORT_METHOD(requestPermissions:(NSString *)permissionType
   NSArray *arbitraryReturnVal = @[@"testing..."];
 
 
-  if ([locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-    [locationManager requestAlwaysAuthorization];
-  } else if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-    [locationManager requestWhenInUseAuthorization];
+  if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+    [self.locationManager requestAlwaysAuthorization];
+  } else if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+    [self.locationManager requestWhenInUseAuthorization];
   }
   resolve(arbitraryReturnVal);
 }
@@ -116,7 +116,7 @@ RCT_EXPORT_METHOD(requestPermissions:(NSString *)permissionType
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation* location = [locations lastObject];
     
-    lastLocationEvent = @{
+  NSDictionary* lastLocationEvent = @{
                           @"coords": @{
                                   @"latitude": @(location.coordinate.latitude),
                                   @"longitude": @(location.coordinate.longitude),
@@ -131,6 +131,12 @@ RCT_EXPORT_METHOD(requestPermissions:(NSString *)permissionType
 
     RCTLogInfo(@"locationChange : %@", lastLocationEvent);
     [self sendEventWithName:@"locationChange" body:lastLocationEvent];
+}
+
+-(void)locationManager:(CLLocationManager *)manager
+didFailWithError:(NSError *)error
+{
+   NSLog(@"CLLocationManager error: %@", error);
 }
 
 RCT_EXPORT_METHOD(hasPermissions:(RCTResponseSenderBlock)callback) {
