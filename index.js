@@ -74,10 +74,16 @@ export default {
     return RNBoundary.requestPermissions(level);
   }
 
-  requestLocation: _ => {
+  requestLocation: () => {
     return RNBoundary.requestLocation();
   }
   
+  locationEnabled: callback => {
+    return RNBoundary.locationEnabled(callback);
+  }
   
+  hasPermissions: callback => {
+    return RNBoundary.locationEnabled(callback);
+  }
 }
 
