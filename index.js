@@ -9,7 +9,7 @@ const boundaryEventEmitter = new NativeEventEmitter(RNBoundary);
 const Events = {
   EXIT: "onExit",
   ENTER: "onEnter",
-  LOCATION_CHANGE: "locationChange",
+  LOCATION_CHANGE: "locationChange"
 };
 
 export {
@@ -84,6 +84,6 @@ export default {
   
   hasPermissions: callback => {
     return RNBoundary.locationEnabled(callback);
-  },
+  }
 }
 
