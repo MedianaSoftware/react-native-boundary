@@ -77,7 +77,28 @@ RCT_EXPORT_METHOD(removeAll:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromise
 
 - (NSArray<NSString *> *)supportedEvents
 {
-    return @[@"onEnter", @"onExit"];
+    return @[@"onEnter", @"onExit", @"locationChange"];
+}
+
+RCT_EXPORT_METHOD(requestLocation)
+{
+  [locationManager requestLocation];
+}
+
+RCT_EXPORT_METHOD(requestPermissions:(NSString *)permissionType
+                 requestPermissionsWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+  RCTLogInfo(@"Calling requestPermissions");
+  NSArray *arbitraryReturnVal = @[@"testing..."];
+
+
+  if ([locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+    [locationManager requestAlwaysAuthorization];
+  } else if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+    [locationManager requestWhenInUseAuthorization];
+  }
+  resolve(arbitraryReturnVal);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
@@ -90,6 +111,26 @@ RCT_EXPORT_METHOD(removeAll:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromise
 {
     NSLog(@"didExit : %@", region);
     [self sendEventWithName:@"onExit" body:region.identifier];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    CLLocation* location = [locations lastObject];
+    
+    lastLocationEvent = @{
+                          @"coords": @{
+                                  @"latitude": @(location.coordinate.latitude),
+                                  @"longitude": @(location.coordinate.longitude),
+                                  @"altitude": @(location.altitude),
+                                  @"accuracy": @(location.horizontalAccuracy),
+                                  @"altitudeAccuracy": @(location.verticalAccuracy),
+                                  @"heading": @(location.course),
+                                  @"speed": @(location.speed),
+                                  },
+                          @"timestamp": @([location.timestamp timeIntervalSince1970] * 1000) // in ms
+                        };
+
+    RCTLogInfo(@"locationChange : %@", lastLocationEvent);
+    [self sendEventWithName:@"locationChange" body:lastLocationEvent];
 }
 
 + (BOOL)requiresMainQueueSetup
