@@ -74,7 +74,7 @@ export default {
     return RNBoundary.requestPermissions(level);
   }
 
-  requestLocation: level => {
+  requestLocation: _ => {
     return RNBoundary.requestLocation();
   }
   
