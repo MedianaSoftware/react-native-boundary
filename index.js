@@ -83,7 +83,7 @@ export default {
   },
   
   hasPermissions: callback => {
-    return RNBoundary.locationEnabled(callback);
+    return RNBoundary.hasPermissions(callback);
   }
 }
 
