@@ -92,12 +92,12 @@ RCT_EXPORT_METHOD(requestPermissions:(NSString *)permissionType
   RCTLogInfo(@"Calling requestPermissions");
   NSArray *arbitraryReturnVal = @[@"testing..."];
 
-
-  if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-    [self.locationManager requestAlwaysAuthorization];
-  } else if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+  if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
     [self.locationManager requestWhenInUseAuthorization];
   }
+  if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+    [self.locationManager requestAlwaysAuthorization];
+  } 
   resolve(arbitraryReturnVal);
 }
 
