@@ -148,7 +148,7 @@ RCT_EXPORT_METHOD(hasPermissions:(RCTResponseSenderBlock)callback) {
 }
 
 RCT_EXPORT_METHOD(getAccuracyAuthorization:(RCTResponseSenderBlock)callback) {
-  callback(@[@(CLLocationManager.accuracyAuthorization)]);
+  callback(@[@(self.locationManager.accuracyAuthorization)]);
 }
 
 RCT_EXPORT_METHOD(locationEnabled:(RCTResponseSenderBlock)callback) {
