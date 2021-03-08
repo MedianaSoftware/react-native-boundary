@@ -148,7 +148,11 @@ RCT_EXPORT_METHOD(hasPermissions:(RCTResponseSenderBlock)callback) {
 }
 
 RCT_EXPORT_METHOD(getAccuracyAuthorization:(RCTResponseSenderBlock)callback) {
-  callback(@[@(self.locationManager.accuracyAuthorization)]);
+  if(@available(iOS 14.0, *) {
+    callback(@[@(self.locationManager.accuracyAuthorization)]);
+  } else {
+    callback(@(0));
+  }
 }
 
 RCT_EXPORT_METHOD(locationEnabled:(RCTResponseSenderBlock)callback) {
