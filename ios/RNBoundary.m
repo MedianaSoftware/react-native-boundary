@@ -151,7 +151,7 @@ RCT_EXPORT_METHOD(getAccuracyAuthorization:(RCTResponseSenderBlock)callback) {
   if(@available(iOS 14.0, *)) {
     callback(@[@(self.locationManager.accuracyAuthorization)]);
   } else {
-    callback(@(@[0]));
+    callback(@(@[@0]));
   }
 }
 
