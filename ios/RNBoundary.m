@@ -147,6 +147,9 @@ RCT_EXPORT_METHOD(hasPermissions:(RCTResponseSenderBlock)callback) {
   callback(@[@(status)]);
 }
 
+RCT_EXPORT_METHOD(getAccuracyAuthorization:(RCTResponseSenderBlock)callback) {
+  callback(@[@(CLLocationManager.accuracyAuthorization)]);
+}
 
 RCT_EXPORT_METHOD(locationEnabled:(RCTResponseSenderBlock)callback) {
   RCTLogInfo(@"Called locationEnabled");
