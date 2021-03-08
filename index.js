@@ -84,6 +84,10 @@ export default {
   
   hasPermissions: callback => {
     return RNBoundary.hasPermissions(callback);
+  },
+  
+  getAccuracyAuthorization: callback => {
+    return RNBoundary.getAccuracyAuthorization(callback);
   }
 }
 
